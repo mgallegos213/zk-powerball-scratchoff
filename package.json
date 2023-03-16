@@ -6,6 +6,8 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "@thirdweb-dev/chains": "^0.1.6",
+    "@thirdweb-dev/sdk": "^3.10.3",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",

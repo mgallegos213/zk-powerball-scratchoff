@@ -57,16 +57,26 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Michaels Express App' });
 });
 
-router.get("/list_movies", (req, res) => {
+router.get("/list_movies", async (req, res) => {
   fs.readFile(__dirname + '/' + 'movies.json', 'utf8', (err, data) => {
       res.end(data);
   });
-  // const contract = await sdk.getContractFromAbi("0x8fb4afda5f9eab08e86bf101b00f95fb41463bd7", myAbi);
-  // const data = await contract.call(
-  //   "get", // Name of your function as it is on the smart contract
-  // );
-  // return data;
 });
+
+router.get("/contract", async (req, res) => {
+	try {
+	  const contract = await sdk.getContractFromAbi("0x8fb4afda5f9eab08e86bf101b00f95fb41463bd7", myAbi);
+	  const result = await contract.call("get");
+	  const data = result.toString(); // Convert BigNumber to string
+	  // ^ Remove .toString() to output the raw data, will be in this format: BigNumber { _hex: '0x05', _isBigNumber: true }
+	  console.log(data);
+	  return res.send(data);
+	} catch (error) {
+	  console.error(error);
+	  return res.status(500).send({ error: "Something went wrong" });
+	}
+  });
+  
 
 
 module.exports = router;

@@ -53,4 +53,8 @@ contract Powerball {
     receive() external payable {
         // do nothing for now
     }
+
+    function getLatestWinningNumbers() public view returns (uint8[6] memory) {
+        return winningNumbers;
+    }
 }
